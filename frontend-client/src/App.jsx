@@ -316,7 +316,7 @@ import Directory from "./pages/Directory";
 import DeveloperProfile from "./pages/DeveloperProfile";
 
 import "./App.css";
-import { ToastContainer } from "react-toastify"; // Import ToastContainer
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const AppContent = () => {

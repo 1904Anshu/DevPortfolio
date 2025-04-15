@@ -25,15 +25,10 @@ const {
 router.post("/", protect, restrictTo("owner"), addSkill);
 
 // 👍 Endorse a skill (accessible to visitor and owner roles)
-router.post(
-  "/:id/endorse",
-  protect,
-  restrictTo("visitor", "owner"),
-  endorseSkill
-);
+router.post("/:id/endorse", protect, restrictTo("visitor"), endorseSkill);
 
 // 🔍 Search for skills (accessible only to visitors)
-router.get("/search", protect, restrictTo("visitor"), searchSkills);
+router.get("/search", searchSkills);
 
 // 🌍 Get all skills (public or protected depending on your use case)
 router.get("/", getAllSkills);

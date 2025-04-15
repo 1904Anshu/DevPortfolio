@@ -1,4 +1,5 @@
 const Skill = require("../models/Skill");
+const User = require("../models/User");
 
 // ➕ Add Skill (Accessible to owners only)
 exports.addSkill = async (req, res) => {
@@ -205,30 +206,67 @@ exports.getSkillPopularity = async (req, res) => {
 };
 
 // 🔍 Search Skills (Public access)
+// exports.searchSkills = async (req, res) => {
+//   try {
+//     const { search } = req.query; // Get the search query parameter
+
+//     if (!search) {
+//       return res.status(400).json({ message: "Search term is required" });
+//     }
+
+//     // Define the search filter
+//     const searchFilter = {
+//       $or: [
+//         { name: { $regex: search, $options: "i" } }, // Match skill name
+//         { category: { $regex: search, $options: "i" } }, // Match skill category
+//       ],
+//     };
+
+//     // Fetch skills based on search filter
+//     const skills = await Skill.find(searchFilter).populate(
+//       "userId",
+//       "name title"
+//     );
+
+//     if (skills.length === 0) {
+//       return res.status(404).json({ message: "No skills found" });
+//     }
+
+//     res.status(200).json(skills);
+//   } catch (error) {
+//     res.status(500).json({
+//       message: "Error searching skills",
+//       error: error.message,
+//     });
+//   }
+// };
+
 exports.searchSkills = async (req, res) => {
   try {
-    const { search } = req.query; // Get the search query parameter
+    const { search } = req.query;
 
     if (!search) {
       return res.status(400).json({ message: "Search term is required" });
     }
 
-    // Define the search filter
-    const searchFilter = {
-      $or: [
-        { name: { $regex: search, $options: "i" } }, // Match skill name
-        { category: { $regex: search, $options: "i" } }, // Match skill category
-      ],
-    };
+    // First, find all users matching the name search
+    const matchedUsers = await User.find({
+      name: { $regex: search, $options: "i" },
+    }).select("_id");
 
-    // Fetch skills based on search filter
-    const skills = await Skill.find(searchFilter).populate(
-      "userId",
-      "name title"
-    );
+    const matchedUserIds = matchedUsers.map((user) => user._id);
+
+    // Now search skills based on skill name, category or userId in matched users
+    const skills = await Skill.find({
+      $or: [
+        { name: { $regex: search, $options: "i" } },
+        { category: { $regex: search, $options: "i" } },
+        { userId: { $in: matchedUserIds } },
+      ],
+    }).populate("userId", "name title role");
 
     if (skills.length === 0) {
-      return res.status(404).json({ message: "No skills found" });
+      return res.status(404).json({ message: "No skills or developers found" });
     }
 
     res.status(200).json(skills);

@@ -101,6 +101,7 @@ import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import api from "../services/api";
 import LoadingSpinner from "../components/LoadingSpinner";
 import SkillCard from "../components/SkillCard";
+import { toast } from "react-toastify";
 
 const DeveloperProfile = () => {
   const { id } = useParams();
@@ -204,7 +205,7 @@ const DeveloperProfile = () => {
           <h3 className="text-2xl font-semibold mb-4 border-b border-yellow-500 pb-2">
             Skills
           </h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {skills.map((skill) => (
               <SkillCard key={skill._id} skill={skill} />
             ))}
