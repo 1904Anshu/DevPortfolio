@@ -1,76 +1,35 @@
- Developer Skill Management System Setup
+# Developer Skill Management System
 
-## Backend Setup
+## Setup Instructions
 
-1. Navigate to the Backend Folder:**
-
-   
+### Backend Setup:
+1. Navigate to the backend folder:
+   ```bash
    cd backend
-Install Backend Dependencies:
-
-Install the required npm packages.
-
-bash
-Copy
-Edit
+2.Install the backend dependencies:
 npm install
-Set Environment Variables:
 
-Create a .env file in the backend directory and add the following variables:
-
-echo "MONGODB_URL=<Your MongoDB Atlas Connection URL>" >> .env
-echo "JWT_SECRET_KEY=<Your JWT Secret Key>" >> .env
-echo "PORT=5000" >> .env
-Replace the values for MONGODB_URL and JWT_SECRET_KEY:
-
-MONGODB_URL: MongoDB connection URL (you can find this in your MongoDB Atlas dashboard).
-
-JWT_SECRET_KEY: A secret key used for signing JWT tokens (ensure it's a long, random string).
-
-PORT: The port number the server will run on (default is 5000).
-
-Run the Backend Server:
-
-Start the server.
+3.Create a .env file in the backend folder with the following content:
+MONGODB_URL=<Your MongoDB Atlas Connection URL>
+JWT_SECRET_KEY=<Your JWT Secret Key>
+PORT=5000
 
 
-npm run start
-The backend will be available at http://localhost:5000.
+4.Start the backend server:
+npm start
 
-Frontend Setup
-Navigate to the Frontend Folder:
+Frontend Setup:
+1.Navigate to the frontend folder:
+cd frontend-client
 
-bash
-Copy
-Edit
-cd frontend
-Install Frontend Dependencies:
-
-Install the required npm packages.
-
-bash
-Copy
-Edit
+2.Install the frontend dependencies:
 npm install
-Set Environment Variables:
 
-Create a .env file in the frontend directory and add the following variables:
+3.Navigate to the src folder:
+cd src
 
-Edit
-echo "CLIENT_URL=<Your frontend URL (e.g., http://localhost:3000)>" >> .env
-Replace CLIENT_URL with your frontend URL:
+4.Create a .env file in the frontend folder with the following content:
+CLIENT_URL=<Your Frontend URL (e.g., http://localhost:3000)>
 
-CLIENT_URL: The URL of the frontend (it should match the address where the frontend is hosted, typically http://localhost:3000 during local development).
-
-Run the Frontend Server:
-
-Start the development server.
-
+5.Start the frontend development server:
 npm run dev
-The frontend will be available at http://localhost:3000.
-
-Running the Application
-Backend URL: http://localhost:5000
-
-Frontend URL: http://localhost:3000
-
